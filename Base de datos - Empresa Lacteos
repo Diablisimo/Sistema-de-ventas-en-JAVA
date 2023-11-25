@@ -1,0 +1,356 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 25-11-2023 a las 21:49:20
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `empresa_celis`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `administrativo`
+--
+
+CREATE TABLE `administrativo` (
+  `ADM_ID` int(11) NOT NULL,
+  `ADM_NOMBRE` varchar(60) DEFAULT NULL,
+  `ADM_APELLIDO` varchar(60) DEFAULT NULL,
+  `ADM_DNI` varchar(60) DEFAULT NULL,
+  `ADM_EDAD` int(11) DEFAULT NULL,
+  `ADM_NUMEROTELEFONICO` int(11) DEFAULT NULL,
+  `ADM_GENERO` varchar(20) DEFAULT NULL,
+  `ADM_CARGO` varchar(60) DEFAULT NULL,
+  `ADM_CONTRASEÑA` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `administrativo`
+--
+
+INSERT INTO `administrativo` (`ADM_ID`, `ADM_NOMBRE`, `ADM_APELLIDO`, `ADM_DNI`, `ADM_EDAD`, `ADM_NUMEROTELEFONICO`, `ADM_GENERO`, `ADM_CARGO`, `ADM_CONTRASEÑA`) VALUES
+(12345, 'Fany', 'Palomino', '78945612', 19, 987654321, 'Femenino', 'Gerente', '123');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `carrito_compras`
+--
+
+CREATE TABLE `carrito_compras` (
+  `CCP_ID` int(11) NOT NULL,
+  `CLIENTE_ID` int(11) NOT NULL,
+  `PROD_ID` int(11) DEFAULT NULL,
+  `CCP_CANTIDAD` int(11) DEFAULT NULL,
+  `CCP_PRECIOUNITARIO` float DEFAULT NULL,
+  `CCP_SUBTOTAL` float DEFAULT NULL,
+  `CCP_METODO_PAGO` varchar(50) DEFAULT NULL,
+  `CCP_NUMTARJETA` varchar(120) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito_compras`
+--
+
+INSERT INTO `carrito_compras` (`CCP_ID`, `CLIENTE_ID`, `PROD_ID`, `CCP_CANTIDAD`, `CCP_PRECIOUNITARIO`, `CCP_SUBTOTAL`, `CCP_METODO_PAGO`, `CCP_NUMTARJETA`) VALUES
+(1000, 0, 1002, 5, 10, 50, 'Efectivo', ''),
+(1001, 1234, 1002, 5, 10, 50, 'Tarjeta', ''),
+(1002, 0, 1002, 5, 10, 50, 'Efectivo', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `clientes`
+--
+
+CREATE TABLE `clientes` (
+  `CLI_ID` int(11) NOT NULL,
+  `CLI_NOMBRE` varchar(60) DEFAULT NULL,
+  `CLI_APELLIDO` varchar(60) DEFAULT NULL,
+  `CLI_DNI` varchar(60) DEFAULT NULL,
+  `CLI_EDAD` varchar(60) DEFAULT NULL,
+  `CLI_NUMEROTELEFONICO` int(11) DEFAULT NULL,
+  `CLI_GENERO` varchar(20) DEFAULT NULL,
+  `CLI_CARGO` varchar(60) NOT NULL,
+  `CLI_CONTRASENIA` varchar(60) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`CLI_ID`, `CLI_NOMBRE`, `CLI_APELLIDO`, `CLI_DNI`, `CLI_EDAD`, `CLI_NUMEROTELEFONICO`, `CLI_GENERO`, `CLI_CARGO`, `CLI_CONTRASENIA`) VALUES
+(0, '0000', '0000', '0000', '0000', 0, 'Masculino', 'Invitado', '0000'),
+(1234, 'Angel', 'Valdivia', '78945612', '19', 1234, 'Masculino', 'Cliente Concurrido', '---');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comprobante`
+--
+
+CREATE TABLE `comprobante` (
+  `ID_COMPROBANTE` int(11) NOT NULL,
+  `NOMBRE` varchar(60) NOT NULL,
+  `DNI` varchar(60) NOT NULL,
+  `DIRECCION` varchar(60) NOT NULL,
+  `F_EMISION` varchar(60) NOT NULL,
+  `F_VENCIMIENTO` varchar(60) NOT NULL,
+  `ID_VENDEDOR` int(11) NOT NULL,
+  `ID_PEDIDO` int(11) NOT NULL,
+  `COSTO` float NOT NULL,
+  `IGV` float NOT NULL,
+  `TOTAL_PAGAR` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `delivery`
+--
+
+CREATE TABLE `delivery` (
+  `DEL_ID` int(11) NOT NULL,
+  `DEL_FECHA_DELIVERY` varchar(20) DEFAULT NULL,
+  `DEL_NOMBRE` varchar(60) DEFAULT NULL,
+  `DEL_DIRECCIONDEENTREGA` varchar(120) DEFAULT NULL,
+  `DEL_REFERENCIA` varchar(20) DEFAULT NULL,
+  `DEL_COSTOENV` float DEFAULT NULL,
+  `DEL_TELEFONO` int(11) DEFAULT NULL,
+  `VEN_ID` int(11) DEFAULT NULL,
+  `CLI_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `delivery`
+--
+
+INSERT INTO `delivery` (`DEL_ID`, `DEL_FECHA_DELIVERY`, `DEL_NOMBRE`, `DEL_DIRECCIONDEENTREGA`, `DEL_REFERENCIA`, `DEL_COSTOENV`, `DEL_TELEFONO`, `VEN_ID`, `CLI_ID`) VALUES
+(1000, '24/11/2023', 'Rappi', 'Los Miawlivos', 'Miaw', 10, 960674778, 123, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `PED_ID` int(11) NOT NULL,
+  `PED_NOMBRE` varchar(60) NOT NULL,
+  `PED_DESCRIPCION` varchar(70) NOT NULL,
+  `PED_FECHA_PEDIDO` varchar(20) DEFAULT NULL,
+  `PED_DIRECCIONDEENTREGA` varchar(120) DEFAULT NULL,
+  `PED_REFERENCIA` varchar(20) DEFAULT NULL,
+  `VEN_ID` int(11) DEFAULT NULL,
+  `CLI_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`PED_ID`, `PED_NOMBRE`, `PED_DESCRIPCION`, `PED_FECHA_PEDIDO`, `PED_DIRECCIONDEENTREGA`, `PED_REFERENCIA`, `VEN_ID`, `CLI_ID`) VALUES
+(100011, 'Leche', 'cajas de carton x 3', '22/11/23', 'jrn girasoles', 'Jardin', 123, 1234);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productos`
+--
+
+CREATE TABLE `productos` (
+  `PROD_ID` int(11) NOT NULL,
+  `PROD_NOMBRE` varchar(60) DEFAULT NULL,
+  `PROD_DESCRIPCION` varchar(60) DEFAULT NULL,
+  `PROD_STOCK` int(11) DEFAULT NULL,
+  `PROD_FECHA_DE_VENCIMIENTO` varchar(60) DEFAULT NULL,
+  `PROD_PRECIOUNITARIO` float DEFAULT NULL,
+  `PROD_DESCUENTO` float DEFAULT NULL,
+  `PRV_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `productos`
+--
+
+INSERT INTO `productos` (`PROD_ID`, `PROD_NOMBRE`, `PROD_DESCRIPCION`, `PROD_STOCK`, `PROD_FECHA_DE_VENCIMIENTO`, `PROD_PRECIOUNITARIO`, `PROD_DESCUENTO`, `PRV_ID`) VALUES
+(1002, 'Leche de vaca', 'Leche pura de vaca', 500, '25/10/2023', 10, 5, 12345);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `proveedores`
+--
+
+CREATE TABLE `proveedores` (
+  `PRV_ID` int(11) NOT NULL,
+  `PRV_NOMBRE` varchar(60) DEFAULT NULL,
+  `PRV_APELLIDO` varchar(60) DEFAULT NULL,
+  `PRV_DNI` varchar(60) DEFAULT NULL,
+  `PRV_EDAD` int(11) DEFAULT NULL,
+  `PRV_NUMEROTELEFONICO` int(11) DEFAULT NULL,
+  `PRV_GENERO` varchar(20) DEFAULT NULL,
+  `PRV_CARGO` varchar(60) NOT NULL,
+  `PRV_CONTRASENIA` varchar(60) NOT NULL,
+  `PRV_RAZONSOCIAL` varchar(60) DEFAULT NULL,
+  `PRV_LUGARDEORIGEN` varchar(60) DEFAULT NULL,
+  `PRV_CALIDAD` varchar(60) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`PRV_ID`, `PRV_NOMBRE`, `PRV_APELLIDO`, `PRV_DNI`, `PRV_EDAD`, `PRV_NUMEROTELEFONICO`, `PRV_GENERO`, `PRV_CARGO`, `PRV_CONTRASENIA`, `PRV_RAZONSOCIAL`, `PRV_LUGARDEORIGEN`, `PRV_CALIDAD`) VALUES
+(12345, 'Santiago', 'Huaccha', '12345', 19, 9877654, 'Masculino', 'Jefe de Granja', '1234', 'Granja Porcon', 'Cajamarca', '10/10');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `vendedores`
+--
+
+CREATE TABLE `vendedores` (
+  `VEN_ID` int(11) NOT NULL,
+  `VEN_NOMBRE` varchar(60) DEFAULT NULL,
+  `VEN_APELLIDO` varchar(60) DEFAULT NULL,
+  `VEN_DNI` varchar(60) DEFAULT NULL,
+  `VEN_EDAD` int(11) DEFAULT NULL,
+  `VEN_NUMEROTELEFONICO` int(11) DEFAULT NULL,
+  `VEN_GENERO` varchar(20) DEFAULT NULL,
+  `VEN_CARGO` varchar(60) NOT NULL,
+  `VEN_CONTRASENIA` varchar(60) NOT NULL,
+  `VEN_PAGOMENSUAL` float DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `vendedores`
+--
+
+INSERT INTO `vendedores` (`VEN_ID`, `VEN_NOMBRE`, `VEN_APELLIDO`, `VEN_DNI`, `VEN_EDAD`, `VEN_NUMEROTELEFONICO`, `VEN_GENERO`, `VEN_CARGO`, `VEN_CONTRASENIA`, `VEN_PAGOMENSUAL`) VALUES
+(123, 'Jose', 'Cleider', '12345', 19, 789456, 'Masculino', 'Mid Time', '123', 600);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `administrativo`
+--
+ALTER TABLE `administrativo`
+  ADD PRIMARY KEY (`ADM_ID`);
+
+--
+-- Indices de la tabla `carrito_compras`
+--
+ALTER TABLE `carrito_compras`
+  ADD PRIMARY KEY (`CCP_ID`),
+  ADD KEY `FK_PRODUCTOSCARRITO` (`PROD_ID`),
+  ADD KEY `fk_cliente` (`CLIENTE_ID`);
+
+--
+-- Indices de la tabla `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`CLI_ID`);
+
+--
+-- Indices de la tabla `comprobante`
+--
+ALTER TABLE `comprobante`
+  ADD PRIMARY KEY (`ID_COMPROBANTE`),
+  ADD KEY `FK_ID_VENDEDOR` (`ID_VENDEDOR`),
+  ADD KEY `fk_comprobante_pedido` (`ID_PEDIDO`);
+
+--
+-- Indices de la tabla `delivery`
+--
+ALTER TABLE `delivery`
+  ADD PRIMARY KEY (`DEL_ID`),
+  ADD KEY `FK_VENDEDOR` (`VEN_ID`),
+  ADD KEY `FK_CDELIVERY` (`CLI_ID`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`PED_ID`),
+  ADD KEY `FK_VENDEDORPED` (`VEN_ID`),
+  ADD KEY `FK_CLIENTEPED` (`CLI_ID`);
+
+--
+-- Indices de la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD PRIMARY KEY (`PROD_ID`),
+  ADD KEY `FK_PRV` (`PRV_ID`);
+
+--
+-- Indices de la tabla `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD PRIMARY KEY (`PRV_ID`);
+
+--
+-- Indices de la tabla `vendedores`
+--
+ALTER TABLE `vendedores`
+  ADD PRIMARY KEY (`VEN_ID`);
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `carrito_compras`
+--
+ALTER TABLE `carrito_compras`
+  ADD CONSTRAINT `FK_PRODUCTOSCARRITO` FOREIGN KEY (`PROD_ID`) REFERENCES `productos` (`PROD_ID`),
+  ADD CONSTRAINT `fk_cliente` FOREIGN KEY (`CLIENTE_ID`) REFERENCES `clientes` (`CLI_ID`);
+
+--
+-- Filtros para la tabla `comprobante`
+--
+ALTER TABLE `comprobante`
+  ADD CONSTRAINT `FK_ID_VENDEDOR` FOREIGN KEY (`ID_VENDEDOR`) REFERENCES `vendedores` (`VEN_ID`),
+  ADD CONSTRAINT `fk_comprobante_pedido` FOREIGN KEY (`ID_PEDIDO`) REFERENCES `pedidos` (`PED_ID`);
+
+--
+-- Filtros para la tabla `delivery`
+--
+ALTER TABLE `delivery`
+  ADD CONSTRAINT `FK_CDELIVERY` FOREIGN KEY (`CLI_ID`) REFERENCES `clientes` (`CLI_ID`),
+  ADD CONSTRAINT `FK_VENDEDOR` FOREIGN KEY (`VEN_ID`) REFERENCES `vendedores` (`VEN_ID`);
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `FK_CLIENTEPED` FOREIGN KEY (`CLI_ID`) REFERENCES `clientes` (`CLI_ID`),
+  ADD CONSTRAINT `FK_VENDEDORPED` FOREIGN KEY (`VEN_ID`) REFERENCES `vendedores` (`VEN_ID`);
+
+--
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `FK_PRV` FOREIGN KEY (`PRV_ID`) REFERENCES `proveedores` (`PRV_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
